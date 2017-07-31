@@ -1,0 +1,14 @@
+# Application Configuration
+
+application:
+
+# async executor configuration
+  async:
+    core-pool-size: 2
+    max-pool-size: 2
+    queue-capacity: 500
+    thread-name-prefix: application-executor-
+
+  clients:
+    random-user:
+      url: https://randomuser.me/api/

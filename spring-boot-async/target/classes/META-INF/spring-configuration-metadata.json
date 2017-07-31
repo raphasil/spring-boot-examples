@@ -1,0 +1,22 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.raphasil.example.property.ApplicationProperty",
+      "name": "application",
+      "type": "com.raphasil.example.property.ApplicationProperty"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.raphasil.example.property.ApplicationProperty",
+      "name": "application.async",
+      "type": "com.raphasil.example.property.AsyncProperty"
+    },
+    {
+      "sourceType": "com.raphasil.example.property.ApplicationProperty",
+      "name": "application.clients",
+      "type": "com.raphasil.example.property.ClientsProperty"
+    }
+  ]
+}
