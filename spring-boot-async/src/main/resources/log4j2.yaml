@@ -1,0 +1,42 @@
+Configuration:
+  name: Default
+
+  Properties:
+    Property:
+      name: log-path
+      value: 'logs'
+
+  Appenders:
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "%highlight{[%-5level]} [%d{ISO8601}] [%t-%T] %c{1} %method - %msg %n %throwable"
+
+    RollingRandomAccessFile:
+      - name: File_Appender
+        fileName: ${log-path}/log.json
+        filePattern: "${log-path}/archive/logs.%d{yyyy-MM-dd-hh-mm-ss}.gz"
+        JSONLayout:
+          complete: false
+          locationInfo: true
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 1 KB
+        DefaultRollOverStrategy:
+          max: 30
+
+
+  Loggers:
+
+    Root:
+      level: debug
+      AppenderRef:
+        - ref: Console_Appender
+
+    Logger:
+      - name: com.raphasil.example
+        level: debug
+        AppenderRef:
+          - ref: File_Appender
+            level: debug

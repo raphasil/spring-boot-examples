@@ -1,6 +1,8 @@
 package com.raphasil.example.service;
 
 import com.raphasil.example.property.ApplicationProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -19,22 +22,32 @@ import java.util.concurrent.Future;
 @Service
 public class UserService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
+
     private final ApplicationProperty properties;
-    private final RestTemplate restTemplate;
     private final AsyncRestTemplate asyncRestTemplate;
 
     @Autowired
-    public UserService(ApplicationProperty properties, RestTemplate restTemplate, AsyncRestTemplate asyncRestTemplate) {
+    public UserService(ApplicationProperty properties, AsyncRestTemplate asyncRestTemplate) {
         this.properties = properties;
-        this.restTemplate = restTemplate;
         this.asyncRestTemplate = asyncRestTemplate;
     }
 
     @Async
-    public Future<String> getOneUser() {
-        System.out.println("UserService - getOneUser - BEGIN");
+    public CompletableFuture<String> getOneUserAsync() {
+        LOG.debug("BEGIN");
 
-        AsyncResult<String> result;
+        final String result = getOneUserSync();
+
+        LOG.debug("END");
+
+        return CompletableFuture.completedFuture(result);
+    }
+
+    public String getOneUserSync() {
+        LOG.debug("BEGIN");
+
+        String result;
 
         try {
             final ListenableFuture<ResponseEntity<String>> request = asyncRestTemplate.getForEntity(properties.getClients().getRandomUser().getUrl(), String.class);
@@ -42,15 +55,15 @@ public class UserService {
             final ResponseEntity<String> response = request.get();
 
             if(response.getStatusCode() == HttpStatus.OK && response.hasBody()) {
-                result = new AsyncResult<>(response.getBody());
+                result = response.getBody();
             } else {
-                result = new AsyncResult<>("Result: " + response.getStatusCodeValue());
+                result = "Result: " + response.getStatusCodeValue();
             }
         } catch (Exception e) {
-            result = new AsyncResult<>(e.getMessage());
+            result = e.getMessage();
         }
 
-        System.out.println("UserService - getOneUser - END");
+        LOG.debug("END");
 
         return result;
     }

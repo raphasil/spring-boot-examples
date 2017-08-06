@@ -1,9 +1,0 @@
-/home/raphael/workspace/spring-boot-examples/spring-boot-async/src/main/java/com/raphasil/example/property/AsyncProperty.java
-/home/raphael/workspace/spring-boot-examples/spring-boot-async/src/main/java/com/raphasil/example/property/ClientsProperty.java
-/home/raphael/workspace/spring-boot-examples/spring-boot-async/src/main/java/com/raphasil/example/property/ApplicationProperty.java
-/home/raphael/workspace/spring-boot-examples/spring-boot-async/src/main/java/com/raphasil/example/Application.java
-/home/raphael/workspace/spring-boot-examples/spring-boot-async/src/main/java/com/raphasil/example/controller/UserController.java
-/home/raphael/workspace/spring-boot-examples/spring-boot-async/src/main/java/com/raphasil/example/property/client/RandomUserClientProperty.java
-/home/raphael/workspace/spring-boot-examples/spring-boot-async/src/main/java/com/raphasil/example/service/UserService.java
-/home/raphael/workspace/spring-boot-examples/spring-boot-async/src/main/java/com/raphasil/example/configuration/AsyncConfiguration.java
-/home/raphael/workspace/spring-boot-examples/spring-boot-async/src/main/java/com/raphasil/example/controller/PropertyController.java
