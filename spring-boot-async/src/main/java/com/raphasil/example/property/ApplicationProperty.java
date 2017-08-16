@@ -11,28 +11,39 @@ import javax.validation.Valid;
  */
 @Component
 @Validated
-@ConfigurationProperties(prefix="application")
+@ConfigurationProperties(prefix = "application")
 public class ApplicationProperty {
 
-    @Valid
-    private AsyncProperty async;
+  @Valid
+  private AsyncProperty async;
 
-    @Valid
-    private ClientsProperty clients;
+  @Valid
+  private ClientsProperty clients;
 
-    public AsyncProperty getAsync() {
-        return async;
-    }
+  @Valid
+  private SchedulingProperty scheduling;
 
-    public void setAsync(AsyncProperty async) {
-        this.async = async;
-    }
+  public AsyncProperty getAsync() {
+    return async;
+  }
 
-    public ClientsProperty getClients() {
-        return clients;
-    }
+  public void setAsync(AsyncProperty async) {
+    this.async = async;
+  }
 
-    public void setClients(ClientsProperty clients) {
-        this.clients = clients;
-    }
+  public ClientsProperty getClients() {
+    return clients;
+  }
+
+  public void setClients(ClientsProperty clients) {
+    this.clients = clients;
+  }
+
+  public SchedulingProperty getScheduling() {
+    return scheduling;
+  }
+
+  public void setScheduling(SchedulingProperty scheduling) {
+    this.scheduling = scheduling;
+  }
 }
