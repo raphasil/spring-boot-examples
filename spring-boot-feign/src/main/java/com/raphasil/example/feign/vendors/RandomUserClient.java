@@ -1,7 +1,6 @@
 package com.raphasil.example.feign.vendors;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 

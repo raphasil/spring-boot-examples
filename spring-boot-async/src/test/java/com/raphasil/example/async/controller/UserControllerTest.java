@@ -17,11 +17,22 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
+import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class UserControllerTest {
@@ -39,6 +50,7 @@ public class UserControllerTest {
 
     mockMvc = MockMvcBuilders
         .standaloneSetup(userController)
+        .setControllerAdvice(new GlobalExceptionHandler())
         .build();
   }
 
@@ -95,6 +107,21 @@ public class UserControllerTest {
     mockMvc.perform(asyncDispatch(mvcResult))
         .andDo(print())
         .andExpect(status().isOk())
+        .andExpect(content().string(Matchers.is(mockResult)))
+        .andReturn();
+
+  }
+
+  @Test
+  public void getUserDeferredException() throws Exception {
+
+    String mockResult = "mock result";
+
+    Mockito.doThrow(new RuntimeException(mockResult)).when(userService).getOneUserAsync();
+
+    mockMvc.perform(get(PATH + "/deferred"))
+        .andDo(print())
+        .andExpect(status().isInternalServerError())
         .andExpect(content().string(Matchers.is(mockResult)))
         .andReturn();
 
