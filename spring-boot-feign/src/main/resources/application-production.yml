@@ -1,0 +1,21 @@
+# Application Configuration
+
+application:
+  async: # async configuration
+    core-pool-size: 2
+    max-pool-size: 2
+    queue-capacity: 500
+    thread-name-prefix: application-async-executor-
+
+  scheduling: # scheduling configuration
+    pool-size: 2
+    thread-name-prefix: application-scheduling-executor-
+
+  clients: # clients configuration
+    random-user:
+      url: https://randomuser.me/api/
+
+logging:
+  level:
+    org.springframework: WARN
+    org.hibernate: WARN
